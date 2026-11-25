@@ -209,6 +209,11 @@ def fill_example(name):
     st.session_state.pop("result", None)
 
 
+def clear_form():
+    st.session_state.update(utc="", ra="", dec="")
+    st.session_state.pop("result", None)
+
+
 st.set_page_config(page_title=TITLE, layout="centered")
 st.html(TITLE_CSS)
 with st.container(key="gbm-heading"):
@@ -223,7 +228,9 @@ with st.form("visibility"):
     ra_col, dec_col = st.columns(2)
     ra = ra_col.text_input("RA (J2000, °)", key="ra", placeholder="345.23359", max_chars=24)
     dec = dec_col.text_input("Dec (J2000, °)", key="dec", placeholder="8.47848", max_chars=24)
-    submitted = st.form_submit_button("Проверить", type="primary")
+    with st.container(horizontal=True, gap="small"):
+        submitted = st.form_submit_button("Проверить", type="primary")
+        st.form_submit_button("Очистить", on_click=clear_form)
 
 if submitted:
     st.session_state.pop("result", None)
