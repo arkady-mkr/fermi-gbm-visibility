@@ -32,10 +32,11 @@ EXAMPLES = {
     "GRB 211203A": ("2021-12-03T09:02:38Z", "170.174", "16.256", "upper_limit", (31160, 31163)),
 }
 
-TITLE_CSS = """
+FORM_CSS = """
 <style>
   .st-key-gbm-heading h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); }
   @media (min-width: 800px) { .st-key-gbm-heading h1 { white-space: nowrap; } }
+  [data-testid="stTextInput"] input::placeholder { color: currentColor; opacity: 0.62; }
 </style>
 """
 
@@ -215,7 +216,7 @@ def clear_form():
 
 
 st.set_page_config(page_title=TITLE, layout="centered")
-st.html(TITLE_CSS)
+st.html(FORM_CSS)
 with st.container(key="gbm-heading"):
     st.title(TITLE)
 st.write("Примеры всплесков для заполнения формы")
@@ -244,5 +245,3 @@ if submitted:
 
 if "result" in st.session_state:
     render_result(st.session_state.result)
-
-st.caption("Модель сферической Земли с радиусом 6371 км.")
